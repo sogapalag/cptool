@@ -2,7 +2,8 @@
 use std::{
     collections::{HashMap, HashSet},
     error::Error,
-    fs::{read, write},
+    fs::{read, write, File},
+    io::{prelude::*, BufReader},
     path::{Path, PathBuf},
     result::Result,
     str::from_utf8,
@@ -15,6 +16,22 @@ type Ber = Box<dyn Error + 'static>;
 
 fn get_content(f: &Path) -> Result<Vec<u8>, std::io::Error> {
     read(f)
+}
+// ignore tail tests
+fn get_content_ignore_test(f: &Path) -> Result<Vec<u8>, std::io::Error> {
+    let f = BufReader::new(File::open(f)?);
+    let mut out = Vec::<u8>::new();
+    for l in f.lines() {
+        if let Ok(l) = l {
+            if l.starts_with("#[cfg(test)]") || l.starts_with("#[test]") {
+                break;
+            }
+            for &c in l.as_bytes() {
+                out.push(c);
+            }
+        }
+    }
+    Ok(out)
 }
 fn build_tree(root: &Path) -> Result<HM, Ber> {
     let mut g = HashMap::<PathBuf, Vec<PathBuf>>::new();
@@ -58,7 +75,9 @@ impl Tool {
         *out += name;
         *out += "{";
         if u.is_file() {
-            *out += std::str::from_utf8(&get_content(u).expect("file not exist")).unwrap();
+            //*out += std::str::from_utf8(&get_content(u).expect("file not exist")).unwrap();
+            *out +=
+                std::str::from_utf8(&get_content_ignore_test(u).expect("file not exist")).unwrap();
         } else {
             for v in &self.g[u] {
                 if self.marked.contains(v) {
@@ -140,6 +159,13 @@ mod tests {
         if let Err(e) = t.into_path(tmp) {
             assert_eq!(e.to_string(), format!("{}.rs not exist!", tmp));
         }
+    }
+    #[test]
+    fn test_ignore() {
+        let mut t = Tool::new("cplib");
+        let tmp = "cmp";
+        let out = t.run_from_module(&[tmp]);
+        dbg!(out);
     }
     //#[test]
     //fn write() {
