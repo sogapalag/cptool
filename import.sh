@@ -1,7 +1,8 @@
 #!/bin/bash
 # my local copy
 PBCOPY='xclip -selection clipboard'
+CARGO=$HOME'/cptool'
 # create mods
-~/cptool/target/debug/cptool "${@}"
-rustfmt ~/cptool/.buffer.rs
-$PBCOPY < ~/cptool/.buffer.rs
+$CARGO/target/debug/cptool "${@}"
+rustfmt $CARGO/.buffer.rs
+$PBCOPY < $CARGO/.buffer.rs

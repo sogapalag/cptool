@@ -2,13 +2,14 @@ use cptool::Tool;
 use std::env;
 
 struct Config<'a> {
-    out: &'a str,
+    out: String,
     modules: Vec<&'a str>,
 }
 impl Config<'_> {
     fn new(args: &[String]) -> Config {
         //let out = args[1].clone();
-        let out = ".buffer.rs";
+        let mut out = env!("CARGO").clone().to_string();
+        out += ".buffer.rs";
         let modules = args[1..].iter().map(|s| s.as_str()).collect();
 
         Config { out, modules }
