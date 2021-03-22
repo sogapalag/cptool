@@ -5,7 +5,6 @@ use std::{
     fs::{read, write, File},
     io::{prelude::*, BufReader},
     path::{Path, PathBuf},
-    result::Result,
     str::from_utf8,
 };
 #[allow(unused_imports)]
@@ -14,21 +13,18 @@ use walkdir::WalkDir;
 type HM = HashMap<PathBuf, Vec<PathBuf>>;
 type Ber = Box<dyn Error + 'static>;
 
-fn get_content(f: &Path) -> Result<Vec<u8>, std::io::Error> {
-    read(f)
-}
 // ignore tail tests
-fn get_content_ignore_test(f: &Path) -> Result<Vec<u8>, std::io::Error> {
+fn get_content_ignore_test(f: &Path) -> Result<String, std::io::Error> {
     let f = BufReader::new(File::open(f)?);
-    let mut out = Vec::<u8>::new();
+    let mut out = String::new();
     for l in f.lines() {
         if let Ok(l) = l {
             if l.starts_with("#[cfg(test)]") || l.starts_with("#[test]") {
                 break;
             }
-            for &c in l.as_bytes() {
-                out.push(c);
-            }
+            let l = l.replace("crate::", "crate::cplib::"); // TODO avoid hard coded.
+            out += &l;
+            out += "\n";
         }
     }
     Ok(out)
@@ -71,13 +67,11 @@ impl Tool {
     fn dfs(&self, out: &mut String, u: &Path) {
         let name = u.file_stem().unwrap().to_str().unwrap();
         let name = if name == "src" { self.crate_name } else { name };
-        *out += "mod ";
+        *out += "pub mod "; // all into pub
         *out += name;
-        *out += "{";
+        *out += " {\n";
         if u.is_file() {
-            //*out += std::str::from_utf8(&get_content(u).expect("file not exist")).unwrap();
-            *out +=
-                std::str::from_utf8(&get_content_ignore_test(u).expect("file not exist")).unwrap();
+            *out += &get_content_ignore_test(u).expect("get content fail");
         } else {
             for v in &self.g[u] {
                 if self.marked.contains(v) {
@@ -108,22 +102,22 @@ impl Tool {
         out
     }
 
-    fn into_path(&self, f: &str) -> Result<PathBuf, Ber> {
+    fn into_path<S: AsRef<str>>(&self, f: S) -> Result<PathBuf, Ber> {
         for v in WalkDir::new(&self.root) {
             let v = v?.into_path();
             let name = v.file_stem().unwrap().to_str().unwrap();
-            if f == name && v.is_file() {
+            if f.as_ref() == name && v.is_file() {
                 return Ok(v);
             }
         }
-        Err(format!("{}.rs not exist!", f).into())
+        Err(format!("{}.rs not exist!", f.as_ref()).into())
     }
-    fn run_from_module(&mut self, files: &[&str]) -> String {
-        let files: Vec<PathBuf> = files.iter().map(|&f| self.into_path(f).unwrap()).collect();
+    fn run_from_module<S: AsRef<str>>(&mut self, files: &[S]) -> String {
+        let files: Vec<PathBuf> = files.iter().map(|f| self.into_path(f).unwrap()).collect();
         self.run_from_path(&files)
     }
-    pub fn write<P: AsRef<Path>>(&mut self, out: P, files: &[&str]) {
-        write(out, self.run_from_module(files));
+    pub fn write<P: AsRef<Path>, S: AsRef<str>>(&mut self, out: P, files: &[S]) {
+        write(out, self.run_from_module(files)).expect("write fail");
     }
 }
 
