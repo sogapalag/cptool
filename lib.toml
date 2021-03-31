@@ -1,0 +1,100 @@
+[[tour]]
+id = 0
+name = "cplib"
+path = "/home/peng/cplib/src/lib.rs"
+
+[[tour]]
+id = 1
+parent = 0
+name = "algebra"
+path = "/home/peng/cplib/src/algebra/mod.rs"
+
+[[tour]]
+id = 2
+parent = 1
+name = "add"
+path = "/home/peng/cplib/src/algebra/add.rs"
+
+[[tour]]
+id = 3
+parent = 1
+name = "bit"
+path = "/home/peng/cplib/src/algebra/bit.rs"
+
+[[tour]]
+id = 4
+parent = 1
+name = "cmp"
+path = "/home/peng/cplib/src/algebra/cmp.rs"
+
+[[tour]]
+id = 5
+parent = 0
+name = "io"
+path = "/home/peng/cplib/src/io.rs"
+
+[[tour]]
+id = 6
+parent = 0
+name = "ds"
+path = "/home/peng/cplib/src/ds/mod.rs"
+
+[[tour]]
+id = 7
+parent = 6
+name = "dsu"
+path = "/home/peng/cplib/src/ds/dsu/mod.rs"
+
+[[tour]]
+id = 8
+parent = 7
+name = "basic"
+path = "/home/peng/cplib/src/ds/dsu/basic.rs"
+
+[[tour]]
+id = 9
+parent = 7
+name = "roll_back"
+path = "/home/peng/cplib/src/ds/dsu/roll_back.rs"
+
+[[tour]]
+id = 10
+parent = 6
+name = "fenwick"
+path = "/home/peng/cplib/src/ds/fenwick/mod.rs"
+
+[[tour]]
+id = 11
+parent = 10
+name = "range"
+path = "/home/peng/cplib/src/ds/fenwick/range.rs"
+
+[[tour]]
+id = 12
+parent = 10
+name = "tree"
+path = "/home/peng/cplib/src/ds/fenwick/tree.rs"
+
+[[tour]]
+id = 13
+parent = 6
+name = "seg"
+path = "/home/peng/cplib/src/ds/seg/mod.rs"
+
+[[tour]]
+id = 14
+parent = 13
+name = "tree"
+path = "/home/peng/cplib/src/ds/seg/tree.rs"
+
+[[tour]]
+id = 15
+parent = 0
+name = "prelude"
+path = "/home/peng/cplib/src/prelude/mod.rs"
+
+[[tour]]
+id = 16
+parent = 15
+name = "rng"
+path = "/home/peng/cplib/src/prelude/rng.rs"

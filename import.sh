@@ -5,7 +5,7 @@ OLD=$PWD
 CARGO=$HOME'/cptool'
 # create mods
 cd $CARGO
-cargo run "${@}"
+cargo run --bin cptool "${@}"
 rustfmt .buffer.rs
 $PBCOPY < .buffer.rs
 cd $OLD

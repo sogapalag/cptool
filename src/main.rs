@@ -1,5 +1,7 @@
-use cptool::Tool;
+use cptool::tool::Tool;
 use std::env;
+use std::error::Error;
+use std::fs::{read, write};
 
 struct Config {
     out: String,
@@ -17,11 +19,14 @@ impl Config {
 }
 
 /// write into .buffer.rs
-fn main() {
+fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
     let config = Config::new(&args);
 
-    let cplib = "cplib"; // "~/cplib"
-    let mut t = Tool::new(cplib);
-    t.write(config.out, &config.modules);
+    let root = env::current_dir()?;
+    //dbg!(root);
+    let lib = toml::from_slice(&read(root.join("lib.toml"))?)?;
+    let mut t = Tool::new(lib);
+    write(config.out, t.generate(&config.modules))?;
+    Ok(())
 }

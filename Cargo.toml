@@ -3,10 +3,18 @@ name = "cptool"
 version = "0.1.0"
 authors = ["Zhaopeng Yan <yan-zp@foxmail.com>"]
 edition = "2018"
+description = "A tool for attach lib code into single file, to submit on competitive programming contest website."
+license = "MIT OR Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+default = ["no_doc_comment"]
+no_doc_comment = []
 
 [dependencies]
 walkdir = "2"
 home = "0.5.3"
 regex = "1"
+serde = { version = "1", features = ["derive"] }
+toml = "0.5.8"
