@@ -9,8 +9,9 @@ license = "MIT OR Apache-2.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [features]
-default = ["no_doc_comment"]
+default = ["no_comment", "no_doc_comment"]
 no_doc_comment = []
+no_comment = []
 
 [dependencies]
 walkdir = "2"

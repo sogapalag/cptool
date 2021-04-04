@@ -22,6 +22,9 @@ fn get_content_ignore_test(f: &Path) -> Result<String, std::io::Error> {
             if l.starts_with("#[cfg(test)]") || l.starts_with("#[test]") {
                 break;
             }
+            if cfg!(feature = "no_comment") && is_comment(&l) {
+                continue;
+            }
             if cfg!(feature = "no_doc_comment") && is_doc(&l) {
                 continue;
             }
@@ -87,7 +90,7 @@ impl Tool {
                 let mut tmp = String::new();
                 loop {
                     let mut l = String::new();
-                    buf.read_line(&mut l);
+                    buf.read_line(&mut l).unwrap();
                     if let Some(name) = is_module_def(&l) {
                         assert_eq!(name, &self.tour[v].name);
                         if marked[v] {
@@ -99,6 +102,9 @@ impl Tool {
                         }
                         break;
                     } else {
+                        if cfg!(feature = "no_comment") && is_comment(&l) {
+                            continue;
+                        }
                         if cfg!(feature = "no_doc_comment") && is_doc(&l) {
                             continue;
                         }
@@ -112,7 +118,7 @@ impl Tool {
                 if let Ok(l) = l {
                     // check tail mod marked?
                     if let Some(mods) = get_use(&l) {
-                        let mut v: Vec<&str> = mods.split("::").collect();
+                        let v: Vec<&str> = mods.split("::").collect();
                         //let mut m = v.pop().unwrap();
                         //if self.module_to_id(m).is_err() {
                         //    m = v.pop().unwrap();
@@ -123,7 +129,7 @@ impl Tool {
                         let m = v[1];
                         let m = self.submodule_to_id(u, m).unwrap();
                         if !marked[m] {
-                            break;
+                            continue;
                         }
                     }
                     *out += &l;
@@ -179,13 +185,12 @@ impl Tool {
 mod tests {
     use super::*;
     use home::home_dir;
-    use walkdir::WalkDir;
 
     #[test]
     fn view_tree() {
         let lib_toml = home_dir().unwrap().join("cptool/lib.toml");
         let lib = toml::from_slice(&read(lib_toml).unwrap()).unwrap();
-        let mut t = Tool::new(lib);
+        let t = Tool::new(lib);
         dbg!(&t.g);
     }
     #[test]

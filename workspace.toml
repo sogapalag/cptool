@@ -1,0 +1,9 @@
+path = "/home/peng/cprust/src/bin/"
+
+[components]
+default = ["io"]
+rmq = ["sparse_table", "algebra"]
+segtree = ["algebra", "seg"]
+seglazy = ["algebra", "lazy"]
+m32 = ["modular", "algebra"]
+sa = ["suffix_array", "rmq"]

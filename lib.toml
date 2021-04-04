@@ -6,95 +6,155 @@ path = "/home/peng/cplib/src/lib.rs"
 [[tour]]
 id = 1
 parent = 0
-name = "algebra"
-path = "/home/peng/cplib/src/algebra/mod.rs"
+name = "core"
+path = "/home/peng/cplib/src/core/mod.rs"
 
 [[tour]]
 id = 2
 parent = 1
-name = "add"
-path = "/home/peng/cplib/src/algebra/add.rs"
+name = "internal_macros"
+path = "/home/peng/cplib/src/core/internal_macros.rs"
 
 [[tour]]
 id = 3
 parent = 1
+name = "modular"
+path = "/home/peng/cplib/src/core/modular.rs"
+
+[[tour]]
+id = 4
+parent = 0
+name = "algebra"
+path = "/home/peng/cplib/src/algebra/mod.rs"
+
+[[tour]]
+id = 5
+parent = 4
+name = "add"
+path = "/home/peng/cplib/src/algebra/add.rs"
+
+[[tour]]
+id = 6
+parent = 4
 name = "bit"
 path = "/home/peng/cplib/src/algebra/bit.rs"
 
 [[tour]]
-id = 4
-parent = 1
+id = 7
+parent = 4
 name = "cmp"
 path = "/home/peng/cplib/src/algebra/cmp.rs"
 
 [[tour]]
-id = 5
+id = 8
 parent = 0
 name = "io"
 path = "/home/peng/cplib/src/io.rs"
 
 [[tour]]
-id = 6
-parent = 0
-name = "ds"
-path = "/home/peng/cplib/src/ds/mod.rs"
-
-[[tour]]
-id = 7
-parent = 6
-name = "dsu"
-path = "/home/peng/cplib/src/ds/dsu/mod.rs"
-
-[[tour]]
-id = 8
-parent = 7
-name = "basic"
-path = "/home/peng/cplib/src/ds/dsu/basic.rs"
-
-[[tour]]
 id = 9
-parent = 7
-name = "roll_back"
-path = "/home/peng/cplib/src/ds/dsu/roll_back.rs"
-
-[[tour]]
-id = 10
-parent = 6
-name = "fenwick"
-path = "/home/peng/cplib/src/ds/fenwick/mod.rs"
-
-[[tour]]
-id = 11
-parent = 10
-name = "range"
-path = "/home/peng/cplib/src/ds/fenwick/range.rs"
-
-[[tour]]
-id = 12
-parent = 10
-name = "tree"
-path = "/home/peng/cplib/src/ds/fenwick/tree.rs"
-
-[[tour]]
-id = 13
-parent = 6
-name = "seg"
-path = "/home/peng/cplib/src/ds/seg/mod.rs"
-
-[[tour]]
-id = 14
-parent = 13
-name = "tree"
-path = "/home/peng/cplib/src/ds/seg/tree.rs"
-
-[[tour]]
-id = 15
 parent = 0
 name = "prelude"
 path = "/home/peng/cplib/src/prelude/mod.rs"
 
 [[tour]]
-id = 16
-parent = 15
+id = 10
+parent = 9
+name = "binary_search"
+path = "/home/peng/cplib/src/prelude/binary_search.rs"
+
+[[tour]]
+id = 11
+parent = 9
 name = "rng"
 path = "/home/peng/cplib/src/prelude/rng.rs"
+
+[[tour]]
+id = 12
+parent = 0
+name = "ds"
+path = "/home/peng/cplib/src/ds/mod.rs"
+
+[[tour]]
+id = 13
+parent = 12
+name = "dsu"
+path = "/home/peng/cplib/src/ds/dsu/mod.rs"
+
+[[tour]]
+id = 14
+parent = 13
+name = "basic"
+path = "/home/peng/cplib/src/ds/dsu/basic.rs"
+
+[[tour]]
+id = 15
+parent = 13
+name = "roll_back"
+path = "/home/peng/cplib/src/ds/dsu/roll_back.rs"
+
+[[tour]]
+id = 16
+parent = 12
+name = "fenwick"
+path = "/home/peng/cplib/src/ds/fenwick/mod.rs"
+
+[[tour]]
+id = 17
+parent = 16
+name = "range"
+path = "/home/peng/cplib/src/ds/fenwick/range.rs"
+
+[[tour]]
+id = 18
+parent = 16
+name = "tree"
+path = "/home/peng/cplib/src/ds/fenwick/tree.rs"
+
+[[tour]]
+id = 19
+parent = 12
+name = "seg"
+path = "/home/peng/cplib/src/ds/seg/mod.rs"
+
+[[tour]]
+id = 20
+parent = 19
+name = "lazy"
+path = "/home/peng/cplib/src/ds/seg/lazy.rs"
+
+[[tour]]
+id = 21
+parent = 19
+name = "tree"
+path = "/home/peng/cplib/src/ds/seg/tree.rs"
+
+[[tour]]
+id = 22
+parent = 12
+name = "sparse_table"
+path = "/home/peng/cplib/src/ds/sparse_table.rs"
+
+[[tour]]
+id = 23
+parent = 0
+name = "string"
+path = "/home/peng/cplib/src/string/mod.rs"
+
+[[tour]]
+id = 24
+parent = 23
+name = "manacher"
+path = "/home/peng/cplib/src/string/manacher.rs"
+
+[[tour]]
+id = 25
+parent = 23
+name = "suffix_array"
+path = "/home/peng/cplib/src/string/suffix_array.rs"
+
+[[tour]]
+id = 26
+parent = 23
+name = "z_fn"
+path = "/home/peng/cplib/src/string/z_fn.rs"

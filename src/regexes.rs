@@ -31,3 +31,8 @@ pub fn is_outer_doc(text: &str) -> bool {
 pub fn is_doc(text: &str) -> bool {
     is_inner_doc(text) || is_outer_doc(text)
 }
+
+pub fn is_comment(text: &str) -> bool {
+    let RE = Regex::new(r"^[[:space:]]*//").unwrap();
+    RE.is_match(text)
+}
