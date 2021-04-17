@@ -3,8 +3,7 @@ use cptool::workspace::Workspace;
 use std::collections::HashMap;
 use std::env;
 use std::error::Error;
-use std::fs::{read, read_to_string, write};
-use std::io::BufReader;
+use std::fs::{read, write};
 use std::str::from_utf8;
 
 struct Config {
